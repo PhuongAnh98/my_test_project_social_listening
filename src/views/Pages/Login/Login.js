@@ -1,21 +1,40 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { userActions } from '../../_actions';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
 class Login extends Component {
   constructor(props) {
     super(props);
-
+    this.props.logout();
     this.state = {
       username: "",
       password: "",
-    }
+      submitted: false
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  login() {
-    if (this.state.username === "admin" && this.state.password === "admin") {
-      this.props.history.push('/')
-      localStorage.setItem('logged', "true");
+  // login() {
+  //   if (this.state.username === "Phuonganh" && this.state.password === "iloveyou") {
+  //     this.props.history.push('/')
+  //     localStorage.setItem('logged', "true");
+  //   }
+  // }
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    this.setState({ submitted: true });
+    const { username, password } = this.state;
+    if (username && password) {
+      this.props.login(username, password);
     }
   }
 
@@ -24,13 +43,14 @@ class Login extends Component {
       username: event.target.value
     })
   }
-
   getPassword(event) {
     this.setState({
       password: event.target.value
     })
   }
   render() {
+    //const { loggingIn } = this.props;
+    const { username, password, submitted } = this.state;
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -48,7 +68,7 @@ class Login extends Component {
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Username" autoComplete="username" />
+                        <Input type="text" placeholder="Username" autoComplete="username" value={username}  onChange={this.handleChange} />
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -56,11 +76,11 @@ class Login extends Component {
                             <i className="icon-lock"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" placeholder="Password" autoComplete="current-password" />
+                        <Input type="password" placeholder="Password" autoComplete="current-password" value={password} onChange={this.handleChange} />
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4">Login</Button>
+                          <Button color="primary" className="px-4" onClick={this.handleSubmit}>Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">Forgot password?</Button>
@@ -69,7 +89,7 @@ class Login extends Component {
                     </Form>
                   </CardBody>
                 </Card>
-                {/* <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
+                <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
                   <CardBody className="text-center">
                     <div>
                       <h2>Sign up</h2>
@@ -80,7 +100,7 @@ class Login extends Component {
                       </Link>
                     </div>
                   </CardBody>
-                </Card> */}
+                </Card>
               </CardGroup>
             </Col>
           </Row>
@@ -89,5 +109,14 @@ class Login extends Component {
     );
   }
 }
+function mapState(state) {
+  const { loggingIn } = state.authentication;
+  return { loggingIn };
+}
 
-export default Login;
+const actionCreators = {
+  login: userActions.login,
+  logout: userActions.logout
+};
+const connectedLoginPage = connect(mapState, actionCreators)(LoginPage);
+export {connectedLoginPage as Login} ;

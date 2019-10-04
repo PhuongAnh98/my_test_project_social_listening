@@ -40,7 +40,7 @@ export default {
     //   name: 'Base',
     //   url: '/base',
     //   icon: 'icon-puzzle',
-    //   children: [
+      // children: [
     //     {
     //       name: 'Breadcrumbs',
     //       url: '/base/breadcrumbs',
@@ -255,12 +255,12 @@ export default {
     //     },
     //   ],
     // },
-    // {
-    //   name: 'Disabled',
-    //   url: '/dashboard',
-    //   icon: 'icon-ban',
-    //   attributes: { disabled: true },
-    // },
+    {
+      name: 'Disabled',
+      url: '/dashboard',
+      icon: 'icon-ban',
+      attributes: { disabled: true },
+    },
     {
       name: 'Download CoreUI',
       url: 'https://coreui.io/react/',
