@@ -23,6 +23,11 @@ const Cards = React.lazy(() => import('./views/Base/Cards'));
 // const Buttons = React.lazy(() => import('./views/Buttons/Buttons'));
 // const Charts = React.lazy(() => import('./views/Charts'));
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
+const Post = React.lazy(() => import('./views/Manages/Post'));
+const Influencers = React.lazy(()=>import('./views/Manages/Influencers'));
+const Sentiment =React.lazy(()=>import ('./views/Manages/Sentiment'));
+const Trending =React.lazy(()=>import ('./views/Manages/Trending'));
+
 // const CoreUIIcons = React.lazy(() => import('./views/Icons/CoreUIIcons'));
 // const Flags = React.lazy(() => import('./views/Icons/Flags'));
 // const FontAwesome = React.lazy(() => import('./views/Icons/FontAwesome'));
@@ -44,6 +49,15 @@ const routes = [
   //{ path: '/theme/colors', name: 'Colors', component: Colors },
  // { path: '/theme/typography', name: 'Typography', component: Typography },
   { path: '/base', exact: true, name: 'Base', component: Cards },
+  { path: '/manage', exact: true,  name: 'Manages', component: Post },
+  { path: '/manage/post', exact: true,  name: 'Post', component: Post },
+  { path: '/manage/influencers', exact: true, name: 'Influencers', component:Influencers },
+  { path: '/manage/trending', exact: true, name: 'Trending', component: Trending },
+  { path: '/manage/sentiment', exact: true, name: 'Sentiment', component:Sentiment },
+
+  
+  
+
   // { path: '/base/cards', name: 'Cards', component: Cards },
   // { path: '/base/forms', name: 'Forms', component: Forms },
   // { path: '/base/switches', name: 'Switches', component: Switches },
